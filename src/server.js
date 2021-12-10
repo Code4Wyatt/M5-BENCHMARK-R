@@ -1,12 +1,11 @@
 import express from 'express';
 import cors from "cors";
 import listEndpoints from 'express-list-endpoints';
-import mediaRouter from "../src/media/index.js";
-import reviewRouter from "../src/reviews/index.js";
+import moviesRouter from "../src/media/index.js";
+
 import { notFound, forbidden, catchAllErrorHandler } from "../src/errorHandlers.js";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
-import { parseFile, uploadFile } from "../src/utils/upload/index.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const publicDirectory = path.join(__dirname, "../public");
@@ -31,8 +30,8 @@ server.use(cors());
 server.use(express.json());
 server.use(express.static(publicDirectory));
 
-server.use("/media", mediaRouter);
-server.use("/", reviewRouter);
+server.use("/media", moviesRouter);
+
 
 server.use(notFound);
 server.use(forbidden);

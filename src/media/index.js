@@ -24,22 +24,27 @@ mediaRouter.get("/", async (req, res, next) => {
 
 mediaRouter.post("/", async (req, res, next) => {
     try {
-        const {Title, Year, imdbId, Type, Poster } = req.body;
+        const { Title, Year, imdbId, Type, Poster } = req.body;
+        
     const media = {
       id: uniqid(),
       ...req.body,
       createdAt: new Date(),
       updatedAt: new Date(),
     };
-
-    const fileAsBuffer = fs.readFileSync(mediaFilePath);
-    const fileAsString = fileAsBuffer.toString();
-    const fileAsJSONArray = JSON.parse(fileAsString);
+    console.log(media)
+        const fileAsBuffer = fs.readFileSync(mediaFilePath);
+        console.log(fileAsBuffer)
+        const fileAsString = fileAsBuffer.toString();
+        console.log(fileAsString)
+        const fileAsJSONArray = JSON.parse(fileAsString);
+        
 
     fileAsJSONArray.push(media);
-
+    console.log(fileAsJSONArray)
     fs.writeFileSync(mediaFilePath, JSON.stringify(fileAsJSONArray));
-    res.send(media);
+        res.send(media);
+        
     } catch (error) {
     console.log(error);
     res.status(500).send({ message: error.message });

@@ -23,7 +23,8 @@ mediaRouter.get("/", async (req, res, next) => {
 });
 
 mediaRouter.post("/", async (req, res, next) => {
-  try {
+    try {
+        const {Title, Year, imdbId, Type, Poster } = req.body;
     const media = {
       id: uniqid(),
       ...req.body,
@@ -39,8 +40,9 @@ mediaRouter.post("/", async (req, res, next) => {
 
     fs.writeFileSync(mediaFilePath, JSON.stringify(fileAsJSONArray));
     res.send(media);
-  } catch (error) {
-    res.send({ message: error.message });
+    } catch (error) {
+    console.log(error);
+    res.status(500).send({ message: error.message });
   }
 });
 

@@ -11,7 +11,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const publicDirectory = path.join(__dirname, "../public");
 
-const whiteList = [process.env.FE_LOCAL_URL, process.env.FE_REMOTE_URL];
+const whiteList = [process.env.FE_LOCAL_URL];
 
 const corsOptions = {
     origin: function (origin, callback) {
@@ -27,7 +27,7 @@ const corsOptions = {
 const server = express();
 const PORT = process.env.PORT;
 
-server.use(cors(corsOptions));
+server.use(cors());
 server.use(express.json());
 server.use(express.static(publicDirectory));
 

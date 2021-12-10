@@ -59,3 +59,18 @@ mediaRouter.get("/:id", async (req, res, next) => {
         res.status(500).send({ message: error.message });
     }
 })
+
+mediaRouter.put("/:id", async (req, res, next) => {
+    try {
+        const fileAsBuffer = fs.readFileSync(mediaFilePath);
+        const fileAsString = fileAsBuffer.toString();
+        const fileAsJSONArray = JSON.parse(fileAsString);
+
+        const mediaIndex = fileAsJSONArray.findIndex((media) => media.id === req.params.id);
+        if (!mediaIndex == -1) {
+            res.status(404).send({ message: `Media with ${req.params.id} is not found!` });
+        }
+    } catch (error) {
+        
+    }
+})

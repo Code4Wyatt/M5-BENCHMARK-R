@@ -1,8 +1,8 @@
 import express from 'express';
 import cors from "cors";
 import listEndpoints from 'express-list-endpoints';
-import mediaRouter from "../src/services/media/index.js";
-import reviewRouter from "../src/services/review/index.js";
+import mediaRouter from "../src/media/index.js";
+import reviewRouter from "../src/reviews/index.js";
 import { notFound, forbidden, catchAllErrorHandler } from "../src/errorHandlers.js";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
@@ -11,7 +11,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const publicDirectory = path.join(__dirname, "../public");
 
-const whiteList = [process.env.FE_LOCAL_URL, FE_REMOTE_URL];
+const whiteList = [process.env.FE_LOCAL_URL, process.env.FE_REMOTE_URL];
 
 const corsOptions = {
     origin: function (origin, callback) {
@@ -32,7 +32,7 @@ server.use(express.json());
 server.use(express.static(publicDirectory));
 
 server.use("/media", mediaRouter);
-server.use("/media/:id/review", reviewRouter);
+server.use("/", reviewRouter);
 
 server.use(notFound);
 server.use(forbidden);
